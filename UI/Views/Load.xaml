@@ -1,0 +1,30 @@
+﻿<StackPanel x:Class="UI.Views.Load"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            xmlns:local="clr-namespace:UI.Views"
+            mc:Ignorable="d"
+            Grid.Column="1" Grid.Row="1">
+
+    <StackPanel.Resources>
+        <Style TargetType="{x:Type DataGridRow}">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        <Style TargetType="{x:Type DataGrid}">
+            <Setter Property="AlternationCount" Value="2" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="CanUserDeleteRows" Value="False"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+    </StackPanel.Resources>
+
+    <DataGrid ItemsSource="{Binding Saves}" RowBackground="Transparent"
+              Foreground="White" Background="Transparent" FontSize="16"
+              HeadersVisibility="Row" SelectedIndex="0"/>
+    <Button Style="{StaticResource ExitButtonStyle}" Command="{Binding LoadGameCommand}">
+        <TextBlock Text="Load"/>
+    </Button>
+</StackPanel>

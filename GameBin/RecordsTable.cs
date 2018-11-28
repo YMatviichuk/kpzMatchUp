@@ -23,7 +23,7 @@ namespace GameBin
         List<Record> Records { get; }
     }
 
-    class RecordsTable: IRecordsTable
+    public class RecordsTable: IRecordsTable
     {
         public RecordsTable()
         {
@@ -39,6 +39,14 @@ namespace GameBin
                 return true;
             }
             return isChanges;
+        }
+
+        public bool GetNumberOfRecords(int vnum, ref int rnum, out int onum)
+        {
+            vnum = Records.Count;
+            rnum = Records.Count;
+            onum = Records.Count;
+            return true;
         }
         
         public List<Record> Records => new List<Record>

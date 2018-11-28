@@ -13,16 +13,27 @@ namespace GameBin
         void print(bool printCardsValues);
     }
 
-    public abstract class Board: IBoard, IDisposable
+    public abstract class Board: IBoard
     {
-        private Card[,] cards;
-        private int col;
-        private int row;
-        private Card FirstUpCard = null;
+        public Card[,] cards;
+        public int col;
+        public int row;
+        public Card FirstUpCard = null;
         
         public void RestoreState(BoardMemento memento)
         {
-            this.cards = memento.cards;
+            if (this.col != memento.col || this.row != memento.row)
+            {
+                throw new ArgumentException();
+            }
+
+            for (int i = 0; i < memento.row; i++)
+            {
+                for (int j = 0; j < memento.col; j++)
+                {
+                    this.cards[i, j] = memento.cards[i * memento.col + j];
+                }
+            }
             this.FirstUpCard = memento.firstUpCard;
         }
 
@@ -100,11 +111,6 @@ namespace GameBin
                 FirstUpCard = null;
                 return new Tuple<bool, CardTypes>(SecondUpCard.isUp, SecondUpCard.type);
             }
-        }
-
-        public void Dispose()
-        {
-            Console.WriteLine("Board Disposed");
         }
     }
 }

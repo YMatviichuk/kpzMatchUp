@@ -16,6 +16,10 @@ namespace GameBin
         {
         }
 
+        public Card3D(string _type) : this()
+        {
+        }
+
         override public Card Copy()
         {
             return (Card)this.MemberwiseClone();

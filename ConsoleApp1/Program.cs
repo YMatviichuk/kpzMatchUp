@@ -33,13 +33,17 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            Lab4();
+            //GameFacade facade = new GameFacade();
+            //var game = facade.CreateGame("Simple", 4, 4);
+            //var memento = game.SaveState();
+            //memento.SaveToDisk("test.txt");
+
         }
 
         static void Lab4()
         {
-            GameFacade facade = new GameFacade();
-            var board = facade.CreateGame("Simple", 3, 4);
+            //GameFacade facade = new GameFacade();
+            //var board = facade.CreateGame("Simple", 3, 4);
 
             CardTypes card = CardTypes.Eight | CardTypes.Four;
             Console.WriteLine(card.ToString());
@@ -54,6 +58,23 @@ namespace ConsoleApp1
 
             OverridedObject obj = new OverridedObject();
             Console.WriteLine(obj.ToString());
+
+            // differentParams
+            var rtable = new RecordsTable();
+
+            int vint = 4;
+            int rint = 4;
+
+            rtable.GetNumberOfRecords(vint, ref rint, out var oint);
+            
+            Console.WriteLine(vint);
+            Console.WriteLine(rint);
+            Console.WriteLine(oint);
+
+            SimpleCard c1 = "test";
+
+            SimpleCard c2 = (SimpleCard)1;
+
 
             Console.ReadLine();
         }

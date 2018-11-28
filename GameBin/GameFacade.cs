@@ -2,9 +2,14 @@
 
 namespace GameBin
 {
+    public enum GameType
+    {
+        Simple
+    }
+
     public class GameFacade
     {
-        public Board CreateGame(string gametype, int _col, int _row)
+        public static Board CreateGame(GameType gametype, int _col, int _row)
         {
             if (_col * _row % 2 == 1)
             {
@@ -12,7 +17,7 @@ namespace GameBin
             }
 
             GameFactory factory;
-            if (gametype == "Simple")
+            if (gametype == GameType.Simple)
                 factory = new SimpleGameFactory();
             else
                 throw new ArgumentException("Cannot specify gametype");

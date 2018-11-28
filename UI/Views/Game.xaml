@@ -1,0 +1,119 @@
+﻿<Page x:Class="KPZ_5.Game"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:UI.Views"
+      xmlns:viewModels="clr-namespace:UI.ViewModels"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Game" x:Name="gamePage"
+      DataContext="{Binding GameViewModel, Source={StaticResource ViewModelLocator}}">
+
+    <Page.Resources>
+        <Storyboard x:Key="PlaySoundStoryboard">
+            <MediaTimeline Storyboard.TargetName="media" Source="C:\projects\univer\KPZ_5\KPZ_5\bin\Debug\main_theme.mp3" />
+        </Storyboard>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+
+        <MediaElement x:Name="media">
+            <MediaElement.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard Storyboard="{DynamicResource PlaySoundStoryboard}"/>
+                </EventTrigger>
+            </MediaElement.Triggers>
+        </MediaElement>
+
+        <!--Game grid-->
+        <Grid Grid.Row="0" Grid.RowSpan="3">
+            <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden">
+                <ItemsControl ItemsSource="{Binding Cards}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding type}" MaxHeight="100" MaxWidth="100"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+
+        <!--Menu button-->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="9*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+        </Grid>
+
+        <!--Map and panel-->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Map-->
+            <Border Grid.Column="0" Style="{StaticResource MapBorder}" HorizontalAlignment="Left" Margin="20,0,0,20">
+                <Grid>
+                    <Image Source="C:\projects\univer\KPZ_5\KPZ_5\bin\Debug\MapBackground.jpg"/>
+
+                    <ItemsControl ItemsSource="{Binding Cells}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Margin="10,10,10,10"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding Texture}"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            </Border>
+
+            <!--Panel-->
+            <Border Grid.Column="2"
+                    BorderBrush="#c6b865" 
+                    BorderThickness="3,3,0,0"
+                    CornerRadius="10,0,0,0">
+                <Border.Background>
+                    <SolidColorBrush Color="Black" Opacity="0.5"/>
+                </Border.Background>
+
+                <Border.Effect>
+                    <DropShadowEffect Direction="135" BlurRadius="10"/>
+                </Border.Effect>
+
+                <UniformGrid Margin="3,3,0,0">
+                    <Button Style="{StaticResource PanelButtonStyle}"/>
+                    <Button Style="{StaticResource PanelButtonStyle}"/>
+                    <Button Style="{StaticResource PanelButtonStyle}"/>
+                    <Button Style="{StaticResource PanelButtonStyle}"/>
+                    <Button Style="{StaticResource PanelButtonStyle}"/>
+                    <Button Style="{StaticResource PanelButtonStyle}"/>
+                    <Button Style="{StaticResource PanelButtonStyle}"/>
+                    <Button Style="{StaticResource PanelButtonStyle}"/>
+                    <Button Style="{StaticResource PanelButtonStyle}"/>
+                </UniformGrid>
+            </Border>
+        </Grid>
+
+    </Grid>
+</Page>

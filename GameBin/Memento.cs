@@ -1,32 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//using Newtonsoft.Json.JsonSerializer;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace GameBin
 {
+    [DataContract]
     public class BoardMemento
     {
-        public Card[,] cards { get; private set; }
-        public Card firstUpCard { get; private set; }
+        [DataMember]
+        public Card[] cards { get; set; }
+        [DataMember]
+        public Card firstUpCard { get; set; }
+        [DataMember]
+        public int col { get; set; }
+        [DataMember]
+        public int row { get; set; }
+
 
         public BoardMemento(Card[,] cards, Card firstUpCard = null)
         {
-            this.cards = new Card[cards.GetLength(0),cards.GetLength(1)];
+            this.col = cards.GetLength(0);
+            this.row = cards.GetLength(1);
+            this.cards = cards.Cast<Card>().ToArray();
+            this.firstUpCard = firstUpCard;
+        }
 
-            for (int i = 0; i < cards.GetLength(0); ++i)
+        public string SaveToDisk()
+        {
+            Stream s = new MemoryStream();;
+            var formatter = new DataContractSerializer(typeof(BoardMemento));
+            formatter.WriteObject(s, this);
+            StreamReader sr = new StreamReader(s);
+            return sr.ReadToEnd();
+        }
+
+        public static BoardMemento ReadFromDisk(string filename)
+        {
+            if (File.Exists(filename))
             {
-                for( int j = 0; j < cards.GetLength(1); ++j)
-                {
-                    this.cards[i,j] = cards[i, j].Copy();
-                    if(firstUpCard == cards[i, j])
-                    {
-                        this.firstUpCard = this.cards[i, j];
-                    }
-                }
-            }
+                var f = new FileStream(filename, FileMode.Open);
+                var formatter = new DataContractSerializer(typeof(BoardMemento));
+                return (BoardMemento)formatter.ReadObject(f);
+            } 
+            return null;
+        }
+
+        public static BoardMemento ReadFromStream(Stream stream)
+        {
+            var formatter = new DataContractSerializer(typeof(BoardMemento));
+            return (BoardMemento)formatter.ReadObject(stream);
         }
     }
 
@@ -39,7 +67,7 @@ namespace GameBin
         }
         public void AddMemento(BoardMemento memento)
         {
-           // History.Push.SerializeObject(memento));
+            //History.Push(formatter.Serialize());
         }
     }
 }
