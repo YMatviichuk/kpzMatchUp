@@ -9,7 +9,7 @@ namespace GameBin
         void RestoreState(BoardMemento memento);
         BoardMemento SaveState();
         void InitBoard(Card[,] _cards, int _col, int _row);
-        Tuple<bool, CardTypes> cardUp(int indRow, int indCol);
+        void cardUp(int indRow, int indCol);
         void print(bool printCardsValues);
     }
 
@@ -84,19 +84,22 @@ namespace GameBin
             }
         }
 
-        public Tuple<bool, CardTypes> cardUp(int indRow, int indCol)
+        public void cardUp(int indRow, int indCol)
         {
+            if (cards[indRow, indCol].isUp)
+            {
+                return;;
+            }
+
             if (FirstUpCard is null)
             {
                 FirstUpCard = cards[indRow, indCol];
                 FirstUpCard.isUp = true;
-                return new Tuple<bool, CardTypes>(FirstUpCard.isUp, FirstUpCard.type);
             }
             else if (FirstUpCard == cards[indRow, indCol])
             {
                 FirstUpCard.isUp = false;
                 FirstUpCard = null;
-                return new Tuple<bool, CardTypes>(FirstUpCard.isUp, FirstUpCard.type);
             }
             else
             {
@@ -109,7 +112,6 @@ namespace GameBin
                     FirstUpCard.isUp = false;
                 }
                 FirstUpCard = null;
-                return new Tuple<bool, CardTypes>(SecondUpCard.isUp, SecondUpCard.type);
             }
         }
     }

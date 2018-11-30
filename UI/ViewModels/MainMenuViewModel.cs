@@ -39,7 +39,7 @@ namespace UI.ViewModels
 
             LoadGameCommand = new ParameterizedCommand(async (arg) =>
             {
-                var dataGrid = (((StackPanel)((Grid)Page.Content).Children[0]).Children[0] as DataGrid);
+                var dataGrid = (arg as DataGrid);
                 var id = ((Save)dataGrid.Items[dataGrid.SelectedIndex]).Id;
                 var memento = await SaveManager.LoadGame(id);
 
@@ -47,8 +47,10 @@ namespace UI.ViewModels
                 board.RestoreState(memento);
 
                 var gamePage = new Game();
-                gamePage.DataContext = new GameViewModel(board);
-                ((Window)Page.Parent).Content = gamePage;
+                gamePage.DataContext = new GameViewModel();
+                
+                ((GameViewModel)gamePage.DataContext).Board = board;
+                App.Current.MainWindow.Content = gamePage;
             });
         }
     }

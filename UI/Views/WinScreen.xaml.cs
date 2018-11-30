@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace UI.Views
 {
     /// <summary>
-    /// Interaction logic for MainMenu.xaml
+    /// Interaction logic for WinScreen.xaml
     /// </summary>
-    public partial class MainMenu : Page
+    public partial class WinScreen : StackPanel
     {
-        public MainMenu()
+        public WinScreen()
         {
             InitializeComponent();
         }

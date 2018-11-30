@@ -1,4 +1,4 @@
-﻿<Page x:Class="UI.MainMenu"
+﻿<Page x:Class="UI.Views.MainMenu"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -33,15 +33,15 @@
                 <DropShadowEffect Color="Black" Direction="-90" RenderingBias="Quality" BlurRadius="6" ShadowDepth="0" Opacity="1"/>
             </StackPanel.Effect>
 
-            <Button Command="{Binding NewGameCommand}">
+            <Button Style="{StaticResource MenuButtonStyle}" Command="{Binding NewGameCommand}">
                 <TextBlock Text="New game"/>
             </Button>
 
-            <Button Command="{Binding OpenLoadGameWindowCommand}" CommandParameter="{x:Reference Grid}">
+            <Button Style="{StaticResource MenuButtonStyle}" Command="{Binding OpenLoadGameWindowCommand}" CommandParameter="{x:Reference Grid}">
                 <TextBlock Text="Load"/>
             </Button>
 
-            <Button Style="{StaticResource ExitButtonStyle}" Command="{Binding ExitCommand}">
+            <Button Style="{StaticResource MenuButtonStyle}" Command="{Binding ExitCommand}">
                 <TextBlock Text="Exit"/>
             </Button>
         </StackPanel>

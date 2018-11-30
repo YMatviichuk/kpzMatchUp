@@ -43,6 +43,7 @@
                 </Button>
             </StackPanel>
 
+            <local:SaveWindow Visibility="Collapsed" x:Name="saveMenu"/>
         </Grid>
     </Border>
 </StackPanel>

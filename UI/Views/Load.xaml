@@ -21,10 +21,10 @@
         </Style>
     </StackPanel.Resources>
 
-    <DataGrid ItemsSource="{Binding Saves}" RowBackground="Transparent"
+    <DataGrid x:Name="DataGrid"  ItemsSource="{Binding Saves}" RowBackground="Transparent"
               Foreground="White" Background="Transparent" FontSize="16"
               HeadersVisibility="Row" SelectedIndex="0"/>
-    <Button Style="{StaticResource ExitButtonStyle}" Command="{Binding LoadGameCommand}">
+    <Button Style="{StaticResource MenuButtonStyle}" Command="{Binding LoadGameCommand}" CommandParameter="{x:Reference DataGrid}">
         <TextBlock Text="Load"/>
     </Button>
 </StackPanel>

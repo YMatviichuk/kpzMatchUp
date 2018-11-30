@@ -13,6 +13,9 @@ namespace GameBin
         [DataMember]
         public bool isUp { get; set; }
 
+
+        public CardTypes? VisibleType => isUp ? (CardTypes?)type : null;
+
         public Card()
         {
             Console.WriteLine("Init Simple Card");

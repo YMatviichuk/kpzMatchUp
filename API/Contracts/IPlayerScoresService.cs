@@ -14,7 +14,7 @@ namespace API.Contracts
 {
     public interface IPlayerScoresService
     {
-        IQueryable<PlayerScore> GetPlayerScores();
+        List<PlayerScore> GetPlayerScores();
         PlayerScore GetPlayerScore(int id);
         bool UpdatePlayerScore(int id, PlayerScore playerScore);
         void InsertPlayerScore(PlayerScore playerScore);

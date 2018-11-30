@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace UI.Views.Converters
+namespace UI.Converters
 {
-    class ParametersToArrayConverter : IMultiValueConverter
+    public class ParametersToArrayConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {

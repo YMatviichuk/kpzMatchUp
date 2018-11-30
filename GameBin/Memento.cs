@@ -33,15 +33,19 @@ namespace GameBin
 
         public string SaveToDisk()
         {
-            Stream s = new MemoryStream();;
-            var formatter = new DataContractSerializer(typeof(BoardMemento));
-            formatter.WriteObject(s, this);
-            StreamReader sr = new StreamReader(s);
-            return sr.ReadToEnd();
+            using (MemoryStream memoryStream = new MemoryStream())
+            using (StreamReader reader = new StreamReader(memoryStream))
+            {
+                DataContractSerializer serializer = new DataContractSerializer(this.GetType());
+                serializer.WriteObject(memoryStream, this);
+                memoryStream.Position = 0;
+                return reader.ReadToEnd();
+            }
         }
 
         public static BoardMemento ReadFromDisk(string filename)
         {
+
             if (File.Exists(filename))
             {
                 var f = new FileStream(filename, FileMode.Open);
@@ -51,10 +55,16 @@ namespace GameBin
             return null;
         }
 
-        public static BoardMemento ReadFromStream(Stream stream)
+        public static BoardMemento ReadFromStream(string xml)
         {
-            var formatter = new DataContractSerializer(typeof(BoardMemento));
-            return (BoardMemento)formatter.ReadObject(stream);
+            using (Stream stream = new MemoryStream())
+            {
+                byte[] data = System.Text.Encoding.UTF8.GetBytes(xml);
+                stream.Write(data, 0, data.Length);
+                stream.Position = 0;
+                DataContractSerializer deserializer = new DataContractSerializer(typeof(BoardMemento));
+                return (BoardMemento)deserializer.ReadObject(stream);
+            }
         }
     }
 

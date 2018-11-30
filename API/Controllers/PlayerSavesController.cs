@@ -37,6 +37,8 @@ namespace API.Controllers
                 return NotFound();
             }
 
+
+
             return Ok(playerSave.Save);
         }
 
@@ -77,14 +79,20 @@ namespace API.Controllers
 
         // POST: api/PlayerSaves
         [ResponseType(typeof(PlayerSave))]
-        public IHttpActionResult PostPlayerSave(PlayerSave playerSave)
+        public IHttpActionResult PostPlayerSave(PlayerSaveCreateModel playerSave)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.PlayerSaves.Add(playerSave);
+            PlayerSave entity = new PlayerSave();
+            entity.CreatedDate = DateTime.Now;
+            entity.Save = playerSave.Save;
+            entity.SaveName = playerSave.SaveName;
+            entity.Player = db.Users.Find(playerSave.Id);
+
+            db.PlayerSaves.Add(entity);
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = playerSave.Id }, playerSave);

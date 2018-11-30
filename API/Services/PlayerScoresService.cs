@@ -14,9 +14,9 @@ namespace API.Services
     {
         private readonly MyContext db = new MyContext();
 
-        public IQueryable<PlayerScore> GetPlayerScores()
+        public List<PlayerScore> GetPlayerScores()
         {
-            return db.PlayerScores;
+            return db.PlayerScores.ToList();
         }
 
         public PlayerScore GetPlayerScore(int id)

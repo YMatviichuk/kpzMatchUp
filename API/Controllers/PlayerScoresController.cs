@@ -24,7 +24,7 @@ namespace API.Controllers
         }
 
         // GET: api/PlayerScores
-        public IQueryable<PlayerScore> GetPlayerScores()
+        public List<PlayerScore> GetPlayerScores()
         {
             return _playerScoreService.GetPlayerScores();
         }

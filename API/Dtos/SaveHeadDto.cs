@@ -12,4 +12,13 @@ namespace API.Dtos
         public DateTime CreatedDate { get; set; }
         public string SaveName { get; set; }
     }
+
+    public class PlayerSaveCreateModel
+    {
+        public int Id { get; set; }
+        public int PlayerId { get; set; }
+        public string Save { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public string SaveName { get; set; }
+    }
 }
